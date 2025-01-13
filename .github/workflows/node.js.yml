@@ -1,0 +1,25 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: ['main-qef']
+  pull_request:
+    branches: ['main-qef']
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x, 16.x]
+    
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
+      - run: yarn run build --if-present
+      - run: yarn test

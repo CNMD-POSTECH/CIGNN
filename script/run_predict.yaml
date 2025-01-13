@@ -1,0 +1,18 @@
+type : 'predict' # predict or train
+path: 'example-1'
+
+device :
+  type: 'cuda' # cuda or cpu
+  number : False
+
+data:
+  charge : True # considering charge data 
+  e_field : False # considering electric fields
+  q_model : /home/work/seonghun/Norm_compare/Final_Q/q_grad.pth.tar
+  
+  site : /home/work/seonghun/Pre/Benchmark_keep/Model/CPM/
+  test_data : ['F_test.npy']
+
+save :
+  best_save : grad.pth.tar # best model name
+  check_save: grad_check.pth.tar # checkpoint model name
