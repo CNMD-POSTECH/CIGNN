@@ -10,29 +10,25 @@ This model enables the generation of customized potentials tailored for specific
 
 ## <span style="font-size:larger;">Installation and Requirements</span>
 
-Ensure your system meets the following requirements before installation:
-
-- **Python**: >= 3.7
-- **[PyTorch](https://pytorch.org/)**: >= 1.12  
-To install PyTorch, follow the [official PyTorch installation guide](https://pytorch.org/get-started/locally/) and select options suitable for your system configuration.
-
 ### <span style="font-size:larger;">Install from PyPI</span>
 
 This is the recommended method for installing CIGNN:
 
 ```bash
-pip install --upgrade pip
-pip install cignn-torch
+git clone https://github.com/CNMD-POSTECH/CIGNN
+cd CIGNN
 ```
-
-### <span style="font-size:larger;">Install from Source</span>
-
-If you prefer to use the latest source code:
 
 ```bash
-git clone https://github.com/CNMD-POSTECH/CIGNN.git
-pip install ./CIGNN
+cond env create -f setup.yaml
+conda activate cignn_env
+pip install --upgrade pip
+pip install .
 ```
+
+Ensure you update the setup.yaml file to match your system's configuration. Specify the appropriate versions of **torch and torch-scatter** based on your system's environment and hardware. 
+
+If you need to install a specific version of PyTorch, refer to the official PyTorch installation guide and choose the options that are compatible with your system.
 
 ---
 
@@ -43,8 +39,8 @@ pip install ./CIGNN
 To train a CIGNN model, use the following command:
 
 ```bash
-python ./scripts/run_train.py \
-    --config=./scripts/run_train.yaml
+cignn-train
+    --config=./script/run_train.yaml
 ```
 
 ### <span style="font-size:larger;">Prediction</span>
@@ -52,11 +48,13 @@ python ./scripts/run_train.py \
 To run prediction with a trained model, use the following command:
 
 ```bash
-python ./scripts/run_predict.py \
-    --config=./scripts/run_predict.yaml
+cignn-predict
+    --config=./script/run_predict.yaml
 ```
 
 Make sure to adjust the YAML file to fit your specific dataset and requirements.
+
+The example datasets are located in the script/example_dataset folder, and the trained atomic charge prediction models are located in the script/example_model folder.
 
 ---
 
@@ -92,7 +90,3 @@ This repository includes contributions from Hyo Gyeong Shin, Seong Hun Kim, and 
 <a href="https://github.com/CNMD-POSTECH/GB-CGCNN/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=CNMD-POSTECH/GB-CGCNN" />
 </a>
-
-
-
-

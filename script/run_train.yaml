@@ -1,5 +1,5 @@
 type : 'train' # predict or train
-path: 'try-1'
+path: 'example-1' # Specify a unique folder name for each new training run. Ensure this name does not overlap with any existing folder to prevent overwriting or conflicts with previous versions.
 test: True  # do test
 direct: False # if train charge model, it should be True
 
@@ -26,26 +26,27 @@ data:
   local_cutoff_type : mean # how to make anglecut off! mean or manual
   
   charge : True # considering charge data 
-  q_model : /home/work/seonghun/Norm_compare/Final_Q/q_grad.pth.tar
+  q_model : /home/work/seonghun/CIGNN/CIGNN/script/example_model/q_grad.pth.tar
   structure_package : pymatgen # structure form package pymatgen,ase,....
   
-  site : /home/work/seonghun/Pre/Benchmark_keep/Model/EFPM/
-  train_data : ['re_valid.npy']
-  valid_data : ['re_valid.npy']
-  test_data : ['re_test.npy']
+  site : /home/work/seonghun/CIGNN/CIGNN/script/example_dataset
+  train_data : ['test_example.npy']
+  valid_data : ['valid_example.npy']
+  test_data : ['test_example.npy']
+  
   preprocess:
     bool: False # if train_data, valid_data, test_data are in site, use False
-    name: ['all.npy']
-    train_size : 12000 # or use train_ratio
-    valid_size : 1500 # or use valid_ratio
-    test_size : 1500 # or use test_ratio
+    name: ['all.npy'] # if train_data, valid_data, test_data are in site, Ignore
+    train_size : 10000 # or use train_ratio
+    valid_size : 500 # or use valid_ratio
+    test_size : 500 # or use test_ratio
 
 
 target_list : ['energy','force'] #energy, force,chi_std,charge
 resume : None #path to latest checkpoint (default: none) (ex)'/home/idealhun92/MLMD/HfO2_grad.pth.tar'
 start_epoch : 0 # 'manual epoch number (useful on restarts)'
 
-epochs : 30 # number of total epochs to  run 
+epochs : 10 # number of total epochs to  run 
 batch :  32  # mini-batch size
 print_freq : 1 # print frequency (default: 10)
 

@@ -1,7 +1,6 @@
 import torch.nn as nn
 from .basic_layers import *
 from .basis_layers import *
-from .extension_layer import *
 
 class RbfEmb(nn.Module):
     

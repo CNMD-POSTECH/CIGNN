@@ -158,7 +158,6 @@ class ModelTrainer:
         )
 
     def save_checkpoint(self, state, is_best, filename='checkpoint.pth.tar', bestname='model_best.pth.tar'):
-        filename=os.path.join(self.path, filename)
         if self.use_ema == True:
             cm=self.ema.average_parameters()
         else:

@@ -407,6 +407,9 @@ def train(config):
         if config['wandb'] :
             wandb.log(logged_data)
 
+        best_path=os.path.join(config['path'], config['save']['best_save'])
+        file_path=os.path.join(config['path'], config['save']['check_save'])
+
         trainer.save_checkpoint({
             'epoch': epoch + 1,
             'state_dict': model.state_dict(),
@@ -416,7 +419,7 @@ def train(config):
             'scale_datas':scale_datas,
             'args': config,
             'lr_log' : lr_log
-        }, is_best,bestname=config['save']['best_save'],filename=config['save']['check_save'])
+        }, is_best,bestname=best_path,filename=file_path)
         
         if (losses_v['total'].avg+losses_t['total'].avg )/2 < config['stop']['early_stop']:
            print('reached required accurcy so stop training')

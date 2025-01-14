@@ -121,48 +121,46 @@ def predict(predict_config):
         torch.cuda.synchronize()  # GPU 연산 동기화
         end_time=time.time()
 
-        pred_E=normalizers['force'].descale(output['energy']).detach().cpu().numpy()[0][0]
-        pred_F=normalizers['force'].descale(output['force']).detach().cpu().numpy()
-        target_E=test_data[i]['E']/(data['position'].shape[0])
-        target_F=test_data[i]['F']
+        if predict_config['prediction']['energy']:
+            pred_E=normalizers['force'].descale(output['energy']).detach().cpu().numpy()[0][0]
+            target_E=test_data[i]['E']/(data['position'].shape[0])
+            energy_error=np.abs(pred_E - target_E)
+            mae_errors['e'].update(energy_error, 1)
+            tmp={
+                'graph_id': i,
+                'energy': {
+                    'ground_truth': target_E,
+                    'prediction': pred_E,
+                },
+            }
 
-        target_Q=np.array(test_data[i]['Q'])
-        pred_Q=data['charge']
-        if predict_config['data']['e_field']:
-            pred_Q=data['field_charge']
-        pred_Q=pred_Q[:, :1] if torch.all(pred_Q[:, 1:]==pred_Q[:, :-1], dim=1).all() else pred_Q
-        pred_Q=pred_Q.squeeze()
-        pred_Q=pred_Q.detach().cpu().numpy()
+        if predict_config['prediction']['force']:
+            pred_F=normalizers['force'].descale(output['force']).detach().cpu().numpy()
+            target_F=test_data[i]['F']
+            force_error=np.mean(np.abs(pred_F - target_F))
+            mae_errors['f'].update(force_error, 1)
+            tmp['forces']={
+                'ground_truth': target_F,
+                'prediction': pred_F,
+            }
 
-        energy_error=np.abs(pred_E - target_E)
-        mae_errors['e'].update(energy_error, 1)
-
-        force_error=np.mean(np.abs(pred_F - target_F))
-        mae_errors['f'].update(force_error, 1)
-
-        charge_error=np.mean(np.abs(pred_Q - target_Q))
-        mae_errors['q'].update(charge_error, 1)
+        if predict_config['prediction']['charge']:
+            target_Q=np.array(test_data[i]['Q'])
+            pred_Q=data['charge']
+            if predict_config['data']['e_field']:
+                pred_Q=data['field_charge']
+            pred_Q=pred_Q[:, :1] if torch.all(pred_Q[:, 1:]==pred_Q[:, :-1], dim=1).all() else pred_Q
+            pred_Q=pred_Q.squeeze()
+            pred_Q=pred_Q.detach().cpu().numpy()
+            charge_error=np.mean(np.abs(pred_Q - target_Q))
+            mae_errors['q'].update(charge_error, 1)
+            tmp['charge']={
+                'ground_truth': target_Q,
+                'prediction': pred_Q
+            }
 
         inference_time=end_time - start_time
         total_inference_time+=inference_time
-        
-        tmp={
-            'graph_id': i,
-            'energy': {
-                'ground_truth': target_E,
-                'prediction': pred_E,
-            },
-        }
-        tmp['forces']={
-            'ground_truth': target_F,
-            'prediction': pred_F,
-        }
-
-        tmp['charge']={
-            'ground_truth': target_Q,
-            'prediction': pred_Q
-        }
-
         predictions.append(tmp)
 
     save_path=os.path.join('./', predict_config['path'])

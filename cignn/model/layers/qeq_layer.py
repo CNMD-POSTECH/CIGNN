@@ -4,7 +4,6 @@ from copy import deepcopy
 from scipy import constants
 from torch_scatter import scatter
 
-from .extension_layer import *
 from .basic_layers import *
 from .basis_layers import *
 
@@ -165,7 +164,6 @@ class QEQ(nn.Module):
         
         edge_src=nbr_fea_idx[:,0]
         edge_dst=nbr_fea_idx[:,1]
-        distance=data['distance']
         position=data['position']
 
         # chi and hardness come from node feature after layer 

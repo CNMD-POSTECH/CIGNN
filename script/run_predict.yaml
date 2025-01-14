@@ -1,17 +1,22 @@
 type : 'predict' # predict or train
-path: 'example-1'
+path : 'example-1'
+
+prediction :
+  charge : False
+  energy : True
+  force : True
 
 device :
-  type: 'cuda' # cuda or cpu
+  type : 'cuda' # cuda or cpu
   number : False
 
 data:
   charge : True # considering charge data 
   e_field : False # considering electric fields
-  q_model : /home/work/seonghun/Norm_compare/Final_Q/q_grad.pth.tar
+  q_model : /home/work/seonghun/CIGNN/CIGNN/script/example_model/q_grad.pth.tar
   
-  site : /home/work/seonghun/Pre/Benchmark_keep/Model/CPM/
-  test_data : ['F_test.npy']
+  site : /home/work/seonghun/CIGNN/CIGNN/script/example_dataset
+  test_data : ['test_example.npy']
 
 save :
   best_save : grad.pth.tar # best model name

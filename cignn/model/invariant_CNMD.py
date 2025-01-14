@@ -185,14 +185,3 @@ class ListGraphNetwork(torch.nn.ModuleList):
              data=layer(data)
         return data
 
-    def predict(self,data):
-      output=self(data)
-      return output
-
-    def predict_fe(self,data):
-      output=self(data)
-      force=output['force'].detach().cpu()
-      energy=output['energy'].detach().cpu()
-
-      return force,energy
-
