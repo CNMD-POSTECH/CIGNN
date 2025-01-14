@@ -54,7 +54,7 @@ cignn-predict
 
 Make sure to adjust the YAML file to fit your specific dataset and requirements.
 
-The example datasets are located in the script/example_dataset folder, and the trained atomic charge prediction models are located in the script/example_model folder.
+The example datasets are located in the **script/example_dataset** folder, and the trained atomic charge prediction models are located in the **script/example_model** folder.
 
 ---
 
