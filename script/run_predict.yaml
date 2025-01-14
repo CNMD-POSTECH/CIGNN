@@ -13,9 +13,9 @@ device :
 data:
   charge : True # considering charge data 
   e_field : False # considering electric fields
-  q_model : /home/work/seonghun/CIGNN/CIGNN/script/example_model/q_grad.pth.tar
+  q_model : ./script/example_model/q_grad.pth.tar
   
-  site : /home/work/seonghun/CIGNN/CIGNN/script/example_dataset
+  site : ./script/example_dataset
   test_data : ['test_example.npy']
 
 save :

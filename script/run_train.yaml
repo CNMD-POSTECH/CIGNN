@@ -26,10 +26,10 @@ data:
   local_cutoff_type : mean # how to make anglecut off! mean or manual
   
   charge : True # considering charge data 
-  q_model : /home/work/seonghun/CIGNN/CIGNN/script/example_model/q_grad.pth.tar
+  q_model : ./script/example_model/q_grad.pth.tar
   structure_package : pymatgen # structure form package pymatgen,ase,....
   
-  site : /home/work/seonghun/CIGNN/CIGNN/script/example_dataset
+  site : ./script/example_dataset
   train_data : ['test_example.npy']
   valid_data : ['valid_example.npy']
   test_data : ['test_example.npy']
