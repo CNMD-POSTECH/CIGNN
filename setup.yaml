@@ -1,0 +1,15 @@
+name: cignn_env
+channels:
+  - defaults
+  - conda-forge
+  - pytorch
+  - nvidia
+dependencies:
+  - python=3.12.2
+  - pytorch=2.2.1
+  - torchvision
+  - torchaudio
+  - pytorch-cuda=12.1
+  - pip
+  - pip:
+      - torch-scatter -f https://data.pyg.org/whl/torch-2.2.1%2Bcu121.html

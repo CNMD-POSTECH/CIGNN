@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cignn_torch"
+version = "0.1.0"
+description = "CIGNN project for PyTorch and CUDA-based computations"
+authors = [
+    { name = "Hyo Gyeong Shin", email = "hyogyeong@postech.ac.kr" }
+]
+license = { text = "MIT" }
+readme = "README.md"
+requires-python = ">=3.12"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "License :: OSI Approved :: MIT License"
+]
+
+dependencies = [
+    "pymatgen",
+    "contextlib2",
+    "torch-ema",
+    "ipykernel",
+    "seaborn",
+    "wandb",
+    "e3nn",
+    "ase"
+]
+
+[tool.setuptools.packages.find]
+include = ["cignn"]
+
+[project.scripts]
+cignn-train = "script.run_train:main"
+cignn-predict = "script.run_predict:main"

@@ -434,7 +434,7 @@ def load_config(config_file):
             config={}
     return config
 
-if __name__=='__main__':
+def main():
     parser=argparse.ArgumentParser(description="Run training or other operations")
     parser.add_argument("--config", type=str, required=True, help="Path to the YAML config file.")
     args=parser.parse_args()
