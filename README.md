@@ -26,7 +26,9 @@ pip install --upgrade pip
 pip install .
 ```
 
-Ensure you update the setup.yaml file to match your system's configuration. Specify the appropriate versions of **torch and torch-scatter** based on your system's environment and hardware. If you need to install a specific version of PyTorch, refer to the official PyTorch installation guide and choose the options that are compatible with your system.
+Ensure you update the setup.yaml file to match your system's configuration. Specify the appropriate versions of **torch and torch-scatter** based on your system's environment and hardware. 
+
+If you need to install a specific version of PyTorch, refer to the official PyTorch installation guide and choose the options that are compatible with your system.
 
 ---
 
