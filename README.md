@@ -85,7 +85,7 @@ CIGNN is distributed under the [MIT License](MIT.md).
 
 ## <span style="font-size:larger;">Contributors</span>
 
-This repository includes contributions from Hyo Gyeong Shin, Seong Hun Kim, and other collaborators.
+This repository includes contributions from Hyo Gyeong Shin, Seong Hun Kim, Donghwa Lee, and other collaborators.
 
 <a href="https://github.com/CNMD-POSTECH/GB-CGCNN/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=CNMD-POSTECH/GB-CGCNN" />

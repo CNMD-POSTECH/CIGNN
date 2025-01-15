@@ -263,7 +263,7 @@ class CrystalDataCIF(Dataset):
         with torch.no_grad():
             for key, value in data_temp.items():
                 data_temp[key]=value.to(self.device)
-            out=model.predict(data_temp)
+            out=model(data_temp)
             for target in ['chi','charge','static_e','A_matrix_ii','A_matrix_ij','static_e_atom']:
                 out_data[target]=out[target].cpu()
             del data_temp
@@ -532,7 +532,7 @@ class StructureData:
         with torch.no_grad():
             for key, value in data_temp.items():
                 data_temp[key]=value.to(self.device)
-            out=model.predict(data_temp)
+            out=model(data_temp)
             for target in ['chi','charge','static_e','A_matrix_ii','A_matrix_ij','static_e_atom']:
                 out_data[target]=out[target].cpu()
             try:
