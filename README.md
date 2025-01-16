@@ -34,7 +34,16 @@ If you need to install a specific version of PyTorch, refer to the official PyTo
 
 ## <span style="font-size:larger;">Usage</span>
 
-### <span style="font-size:larger;">Train</span>
+### <span style="font-size:larger;">Train Charge</span>
+
+To train a CIGNN model, use the following command:
+
+```bash
+cignn-train-q
+    --config=./script/run_train_q.yaml
+```
+
+### <span style="font-size:larger;">Train Energy & Force</span>
 
 To train a CIGNN model, use the following command:
 
@@ -54,7 +63,7 @@ cignn-predict
 
 Make sure to adjust the YAML file to fit your specific dataset and requirements.
 
-The example datasets are located in the **script/example_dataset** folder, and the trained atomic charge prediction models are located in the **script/example_model** folder.
+The example datasets are located in the **script/example_dataset** folder, and the example models are located in the **example-1** folder.
 
 ---
 
