@@ -8,7 +8,7 @@ import contextlib2 as contextlib
 from torch_ema import ExponentialMovingAverage
 
 class ModelTrainer:
-    def __init__(self, path, model, target_list, criterion,device,use_ema=True,ema_decay=0.99, optimizer=None, rmse_loss=False, normalizers=None, print_freq=10):
+    def __init__(self, path, model, target_list, criterion, device, batch_number=4, use_ema=True, ema_decay=0.99, optimizer=None, rmse_loss=False, normalizers=None, print_freq=10):
         self.path=path
         self.model=model
         self.device=device
@@ -17,22 +17,24 @@ class ModelTrainer:
         self.optimizer=optimizer
         self.rmse_loss=rmse_loss
         self.normalizers=normalizers
+        self.batch_number=batch_number
         self.print_freq=print_freq
         self.use_ema =use_ema
         self.ema_decay=ema_decay
-        self.target_processors={
+        self.processors={
             'force': self.process_force,
             'energy': self.process_energy,
             'charge': self.process_charge,
             'chi_std':self.process_chi_std
         }
+        self.target_processors = {key: self.processors[key] for key in target_list if key in self.processors.keys()}
         self.ema=None
         if use_ema == True and self.ema == None:        
             self.ema=ExponentialMovingAverage(self.model.parameters(),
                             decay=self.ema_decay,
                             use_num_updates=True)
-            
-        self.normalizers['energy']=self.normalizers['force']
+        if 'force' in self.target_processors.keys() and 'energy' in self.target_processors.keys():
+            self.normalizers['energy']=self.normalizers['force']
         
     def reset(self):
         self.losses={k: AverageMeter() for k in self.target_list}
@@ -111,8 +113,8 @@ class ModelTrainer:
                 self.data_time.update(time.time() - end)
                 for key, value in data.items():
                     data[key]=value.to(self.device)
-                batch_number=data['energy'].shape[0]
-                target_data={k: data.pop(k) if k in data else torch.zeros(batch_number,device=self.device) for k in self.target_list}
+
+                target_data={k: data.pop(k) if k in data else torch.zeros(self.batch_number,device=self.device) for k in self.target_list}
 
                 output=self.model(data)
 
@@ -187,7 +189,7 @@ class ModelTrainer:
                 return self.run(loader=loader, is_train=False, epoch=epoch,save_output=True, run_type='test')
         else:     
             return self.run(loader=loader, is_train=False, epoch=epoch,save_output=True,  run_type='test')
-        
+      
 class AverageMeter(object):
     """Computes and stores the average and current value"""
     def __init__(self):

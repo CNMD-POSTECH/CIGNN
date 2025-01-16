@@ -1,4 +1,4 @@
-from cignn.utils.multibody.mulitbody_crystal_graph_generator import *
+from cignn.utils.multibody.multibody_crystal_graph_generator import *
 from cignn.model.invariant_CNMD import *
 from cignn.train.trainer import *
 from pymatgen.core import Structure
@@ -116,7 +116,7 @@ def predict(predict_config):
         torch.cuda.synchronize()  # GPU 연산 동기화
         start_time=time.time()
         
-        output=model.predict(data)
+        output=model(data)
         
         torch.cuda.synchronize()  # GPU 연산 동기화
         end_time=time.time()

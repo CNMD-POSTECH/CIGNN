@@ -5,7 +5,7 @@ direct: False # if train charge model, it should be True
 
 
 wandb : False
-wandb_name : 'Test-1'
+wandb_name : 'example-1'
 wandb_project : 'final_benchmark'
 
 
@@ -26,20 +26,20 @@ data:
   local_cutoff_type : mean # how to make anglecut off! mean or manual
   
   charge : True # considering charge data 
-  q_model : ./script/example_model/q_grad.pth.tar
+  q_model : ./example-1/grad_q.pth.tar
   structure_package : pymatgen # structure form package pymatgen,ase,....
   
-  site : ./script/example_dataset
-  train_data : ['test_example.npy']
-  valid_data : ['valid_example.npy']
-  test_data : ['test_example.npy']
+  site : ./example-1
+  train_data : ['split_train.npy']
+  valid_data : ['split_valid.npy']
+  test_data : ['split_test.npy']
   
   preprocess:
     bool: False # if train_data, valid_data, test_data are in site, use False
-    name: ['all.npy'] # if train_data, valid_data, test_data are in site, Ignore
-    train_size : 10000 # or use train_ratio
-    valid_size : 500 # or use valid_ratio
-    test_size : 500 # or use test_ratio
+    name: ['perfect.npy', 'single.npy', 'double.npy'] # if train_data, valid_data, test_data are in site, Ignore
+    train_size : 2400 # or use train_ratio
+    valid_size : 300 # or use valid_ratio
+    test_size : 300 # or use test_ratio
 
 
 target_list : ['energy','force'] #energy, force,chi_std,charge
@@ -47,7 +47,7 @@ resume : None #path to latest checkpoint (default: none) (ex)'/home/idealhun92/M
 start_epoch : 0 # 'manual epoch number (useful on restarts)'
 
 epochs : 10 # number of total epochs to  run 
-batch :  32  # mini-batch size
+batch :  16  # mini-batch size
 print_freq : 1 # print frequency (default: 10)
 
 
@@ -95,6 +95,4 @@ stop :
 loss : 
   weight_f: 100 
   weight_e: 40
-  force_loss : mse
-  energy_loess : mse
   best_mae_error : 20

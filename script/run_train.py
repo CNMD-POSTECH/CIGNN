@@ -9,9 +9,11 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.optim.lr_scheduler import MultiStepLR,CosineAnnealingLR,ReduceLROnPlateau
 
-from cignn.utils.multibody.mulitbody_crystal_graph_generator import *
+from cignn.utils.multibody.multibody_crystal_graph_generator import *
 from cignn.train.trainer import ModelTrainer
 from cignn.model.invariant_CNMD import *
+
+torch.set_default_dtype(torch.float64)
 
 def target_statistics(data_loader,charge,q_model,target_list,Normalizer):
     if 'charge' in target_list:
@@ -41,6 +43,7 @@ def target_statistics(data_loader,charge,q_model,target_list,Normalizer):
     
     print('calculate scale datas')
     atom_type_data=data_list['atom_type']
+    atom_type_data=atom_type_data.to(torch.double)
     non_zero_cols=atom_type_data.any(dim=0)
     atom_type_data=atom_type_data[:, non_zero_cols]
     atomic_e=torch.linalg.lstsq(atom_type_data,system_e)[0] # which i have to get
@@ -121,8 +124,8 @@ def train(config):
     
     else:
         if config['data']['preprocess']['bool']:
-            # return string
-            split_data(data_config=config['data'], test=do_test)
+            crystal_kwargs["data_site"] = config['path']
+            split_data(save_path=config['path'], data_config=config['data'], test=do_test)
             train_data=['split_train.npy']
             valid_data=['split_valid.npy']
             if do_test:

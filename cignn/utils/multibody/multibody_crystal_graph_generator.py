@@ -14,6 +14,7 @@ from pymatgen.core.structure import Structure
 from cignn.model.invariant_CNMD import InvCNMD_Q
 from torch.utils.data.dataloader import default_collate
 from torch.utils.data.sampler import SubsetRandomSampler
+torch.set_default_dtype(torch.float64)
 
 class CrystalDataCIF(Dataset):
     def __init__(self, 
@@ -233,17 +234,17 @@ class CrystalDataCIF(Dataset):
 
     def load_qeq(self,model_path):
         self.qeq_site=model_path
+        atom_type=torch.Tensor(list(self.atom_type)).reshape(-1,1).to(device=self.device)
         model_data=torch.load(self.qeq_site,map_location=lambda storage, loc: storage)
         model_args=argparse.Namespace(**model_data['args'])
-        atom_type=torch.tensor(self.atom_type, dtype=torch.long).to(device=self.device)
         model=InvCNMD_Q(atom_type=atom_type,
                         atom_fea_len=model_args.model['atom_fea_len'],
                         nbr_fea_len=model_args.model['nbr_fea_len'],
                         n_conv=model_args.model['n_conv'],
                         num_radial=model_args.model['num_radial'],
                         lmax=model_args.model['lmax'],
-                        direct=model_args.model['direct'],
-                        cutoff=model_args.model['radius'],
+                        direct=model_args.direct,
+                        cutoff=model_args.data['radius'],
                     )
         model.load_state_dict(model_data['state_dict'])
         model.to(device=self.device)
@@ -284,19 +285,19 @@ class CrystalDataCIF(Dataset):
             if self.charge:
                 if self.qeq_site == 'None':
                     charge=data['Q']
-                    charge=torch.FloatTensor(charge).unsqueeze(1).repeat(1,3)
+                    charge=torch.DoubleTensor(charge).unsqueeze(1).repeat(1,3)
         except:
             raise ValueError('Data is not valid')
 
         atom_number=torch.tensor(atom_number, device=self.device)
         cell=torch.tensor(cell, device=self.device) # type: ignore
         data=self.gen_graph(coords=coords, small_angle=self.small_angle, atom_number=atom_number, cell=cell)
-        data['force']=torch.FloatTensor(force)
-        data['energy']=torch.FloatTensor([energy])
+        data['force']=torch.DoubleTensor(force)
+        data['energy']=torch.DoubleTensor([energy])
         atom_type,atom_type_count=torch.unique(data['atom_number'], return_counts=True)
         atom_type=atom_type.to(torch.long)
         data['atom_type']=torch.zeros(97)
-        data['atom_type'][atom_type]=atom_type_count.to(torch.float)
+        data['atom_type'][atom_type]=atom_type_count.to(torch.double)
         if self.charge:
             if self.qeq_site != 'None':
                 out_data=self.predict_qeq(self.qeq_model,data)
@@ -517,8 +518,8 @@ class StructureData:
                         n_conv=model_args.model['n_conv'],
                         num_radial=model_args.model['num_radial'],
                         lmax=model_args.model['lmax'],
-                        direct=model_args.model['direct'],
-                        cutoff=model_args.model['radius'],
+                        direct=model_args.direct,
+                        cutoff=model_args.data['radius'],
                         e_field=self.e_field,
                         )
         model.load_state_dict(model_data['state_dict'])
@@ -547,11 +548,11 @@ class StructureData:
     def get_data(self,device):
         atom_number=torch.tensor(list(map(lambda x: x.number,self.structure.species)), device=self.device)
         cell=torch.tensor(self.structure.lattice.matrix, device=self.device) # type: ignore
-        data= self.gen_graph(atom_number=atom_number, cell=cell)
+        data=self.gen_graph(atom_number=atom_number, cell=cell)
         atom_type,atom_type_count=torch.unique(data['atom_number'], return_counts=True)
         atom_type=atom_type.to(torch.long)
         data['atom_type']=torch.zeros(97)
-        data['atom_type'][atom_type]=atom_type_count.to(torch.float)
+        data['atom_type'][atom_type]=atom_type_count.to(torch.double)
         if self.charge:
             if self.qeq_site == 'None':
                 raise ValueError('check qeq site')
@@ -708,10 +709,10 @@ def cumsum_from_zero(input_, device):
     torch.cumsum(input_[:-1], dim=0, out=cumsum[1:])
     return cumsum
 
-def split_data(data_config, test=True):
+def split_data(save_path, data_config, interval=1, test=True):
     data_site=os.path.join(data_config['site'], data_config['preprocess']['name'][0])
     df_temp=np.load(data_site, allow_pickle=True).tolist()
-    total_data_list=df_temp[::self.interval]
+    total_data_list=df_temp[::interval]
     if data_config['preprocess'].get('train_size') and data_config['preprocess'].get('valid_size'):
         train_size=data_config['preprocess']['train_size']
         valid_size=data_config['preprocess']['valid_size']
@@ -738,13 +739,13 @@ def split_data(data_config, test=True):
         raise ValueError("Invalid preprocess configuration. Provide either size or ratio.")
 
     # 데이터 저장
-    train_site = os.path.join(data_config['site'], 'split_train.npy')
-    valid_site = os.path.join(data_config['site'], 'split_valid.npy')
+    train_site = os.path.join(save_path, 'split_train.npy')
+    valid_site = os.path.join(save_path, 'split_valid.npy')
     np.save(train_site, train_data)
     np.save(valid_site, valid_data)
     
     if test:
-        test_site = os.path.join(data_config['site'], 'split_test.npy')
+        test_site = os.path.join(save_path, 'split_test.npy')
         np.save(test_site, test_data)
     
     print(f"Train data saved at: {train_site}")

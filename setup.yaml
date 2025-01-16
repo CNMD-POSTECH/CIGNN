@@ -10,6 +10,10 @@ dependencies:
   - torchvision
   - torchaudio
   - pytorch-cuda=12.1
+  - mpich
+  - gxx_linux-64
+  - mkl
+  - mkl-include
   - pip
   - pip:
       - torch-scatter -f https://data.pyg.org/whl/torch-2.2.1%2Bcu121.html

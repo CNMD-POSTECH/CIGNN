@@ -2,7 +2,7 @@ type : 'predict' # predict or train
 path : 'example-1'
 
 prediction :
-  charge : False
+  charge : True
   energy : True
   force : True
 
@@ -13,10 +13,10 @@ device :
 data:
   charge : True # considering charge data 
   e_field : False # considering electric fields
-  q_model : ./script/example_model/q_grad.pth.tar
+  q_model : ./example-1/grad_q.pth.tar
   
-  site : ./script/example_dataset
-  test_data : ['test_example.npy']
+  site : ./example-1
+  test_data : ['split_test.npy']
 
 save :
   best_save : grad.pth.tar # best model name

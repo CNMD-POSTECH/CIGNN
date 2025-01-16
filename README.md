@@ -20,7 +20,7 @@ cd CIGNN
 ```
 
 ```bash
-cond env create -f setup.yaml
+conda env create -f setup.yaml
 conda activate cignn_env
 pip install --upgrade pip
 pip install .
