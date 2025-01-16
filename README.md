@@ -23,7 +23,7 @@ cd CIGNN
 conda env create -f setup.yaml
 conda activate cignn_env
 pip install --upgrade pip
-pip install .
+pip install -e .
 ```
 
 Ensure you update the setup.yaml file to match your system's configuration. Specify the appropriate versions of **torch and torch-scatter** based on your system's environment and hardware. 
@@ -36,7 +36,7 @@ If you need to install a specific version of PyTorch, refer to the official PyTo
 
 ### <span style="font-size:larger;">Train Charge</span>
 
-To train a CIGNN model, use the following command:
+To train a CIGNN (CPM) model, use the following command:
 
 ```bash
 cignn-train-q
@@ -45,7 +45,7 @@ cignn-train-q
 
 ### <span style="font-size:larger;">Train Energy & Force</span>
 
-To train a CIGNN model, use the following command:
+To train a CIGNN (EFPM) model, use the following command:
 
 ```bash
 cignn-train
