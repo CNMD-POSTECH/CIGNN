@@ -10,7 +10,6 @@ from time import time
 from ase.io import read, write
 
 from generator import AtomsData
-from calc_polar import calc_polarization
 from cignn.utils.multibody.multibody_crystal_graph_generator import Normalizer
 from cignn.model.invariant_CNMD import InvCNMD
 
@@ -183,20 +182,14 @@ def CNMP_get_energy_forces_and_charge(cell, atomic_numbers, positions):
 
     if e_field_bool:
         e_field_s, e_field_e, axis = e_field_params
-        p_x, p_y, p_z = calc_polarization(myAtoms, charge, ase=True, unit_change=False) # polarization unit is e * Angstrom
-        p = [p_x, p_y, p_z][axis]
-        print('polarization', p)
 
         if e_field_s == e_field_e:
             E = e_field_s
-            potential_energy = -(E * p)
             add_force = (E * charge).reshape(-1, 1)
             forces[:, axis] += add_force.squeeze()
         else:
             print('Not implemented yet')
 
-        energy_field = energy + potential_energy.item()
-    else:
-        energy_field = energy
+    energy_field = energy
 
     return energy, energy_field, forces.tolist(), charge.tolist(), chi.tolist()

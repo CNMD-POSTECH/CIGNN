@@ -1,7 +1,0 @@
-config_yml = /home/work/seonghun/CIGNN/CIGNN/cnmp/lammps/potentials/CNMP/config/run_train.yaml
-config_yml = /home/work/seonghun/CIGNN/CIGNN/cnmp/lammps/potentials/CNMP/config/run_train.yaml
-config_yml = /home/work/seonghun/CIGNN/CIGNN/cnmp/lammps/potentials/CNMP/config/run_train.yaml
-config_yml = /home/work/seonghun/CIGNN/CIGNN/cnmp/lammps/potentials/CNMP/config/run_train.yaml
-checkpoint = /home/work/seonghun/CIGNN/CIGNN/cnmp/lammps/potentials/CNMP/checkpoint/grad.pth.tar
-qeq_checkpoint = ./example-1/grad_q.pth.tar
-config_yml = /home/work/seonghun/CIGNN/CIGNN/cnmp/lammps/potentials/CNMP/config/run_train.yaml
