@@ -67,6 +67,14 @@ The example datasets are located in the **script/example_dataset** folder, and t
 
 ---
 
+## <span style="font-size:larger;">Molecular Dynamics</span>
+
+To perform molecular dynamics simulations using the generated potentials, refer to the README file located in the cnmp folder. 
+
+This document provides detailed instructions for setting up and executing molecular dynamics simulations.
+
+---
+
 ## <span style="font-size:larger;">References</span>
 
 If you use CIGNN in your research, please consider citing the following work:
