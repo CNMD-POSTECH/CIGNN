@@ -1,7 +1,6 @@
 # <span style="font-size:larger;">CNMP</span>
 
-CNMP is the machine learning potential of the CIGNN (**Charge Integrated Graph Neural Network**) model.  
-This potential enables the dynamic simulations of materials.
+CNMP is the machine learning potential of the CIGNN (**Charge Integrated Graph Neural Network**) model.
 
 ---
 
