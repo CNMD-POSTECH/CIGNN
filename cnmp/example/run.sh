@@ -1,0 +1,1 @@
+/home/work/seonghun/CIGNN/CIGNN/cnmp/lammps/build/lmp -in cubic_relax_0.00.lammps

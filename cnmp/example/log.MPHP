@@ -1,0 +1,13 @@
+
+gpu (in)   = True
+gpu (eff)  = True
+gpu (number) = cuda:0
+config_yml = /home/work/gyrudgyrud21/MPHP/lammps/potentials/MPHP/config/config.yaml
+checkpoint = /home/work/gyrudgyrud21/MPHP/lammps/potentials/MPHP/checkpoint/nvt.pth.tar
+max_neigh  = 50
+cutoff     = 6.0
+energy_mean = {tensor([8], device='cuda:0'): tensor([-12.1138], device='cuda:0', dtype=torch.float32), tensor([72], device='cuda:0'): tensor([-6.0569], device='cuda:0', dtype=torch.float32)}
+species_force_rms = {tensor([8], device='cuda:0'): tensor(0.7294, device='cuda:0', dtype=torch.float32), tensor([72], device='cuda:0'): tensor(0.9223, device='cuda:0', dtype=torch.float32)}
+atom_type = tensor([[ 8.],
+        [72.]], device='cuda:0')
+E-field = [0.0, 0.0, 0]

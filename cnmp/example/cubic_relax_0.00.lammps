@@ -1,0 +1,37 @@
+clear
+units         metal
+dimension     3
+boundary      p p p
+atom_style    charge
+atom_modify   map yes
+neighbor      1.0 bin
+neigh_modify  delay 0 every 1 check no
+read_data     /home/work/gyrudgyrud21/25.01/Input/cubic.data
+mass         1 178.49
+mass         2 15.9994
+group Hf type 1
+group O type 2
+pair_style   MPHP/gpu 'cuda:0' /home/work/gyrudgyrud21/MPHP/lammps/potentials/MPHP 0.00 0.00 0.00
+pair_coeff    * *  MPHP Hf O
+variable natoms equal  "count(all)"
+variable teng   equal  "pe"
+variable a      equal  "lx"
+variable b      equal  "v_teng/v_natoms"
+compute       myChi all chi
+compute       myField all field
+compute       myPressure all pressure NULL virial
+fix           1 all momentum 1 linear 1 1 1
+variable      myfield equal c_myField
+dump          myDump all custom 1 ./cubic_0.00.lammpstrj id element x y z q c_myChi fx fy fz
+dump_modify   myDump sort id element Hf O
+thermo_style  custom step time cpu pe etotal lx ly lz c_myField press vol density
+thermo        1
+# Relaxation steps
+min_style     hftn
+min_modify    line quadratic
+minimize      1e-10 1e-10 10000 10000
+print "Number of atoms = ${natoms}"
+print "Lattice constant (Angstoms) = ${a}"
+print "Cohesive energy (eV/atom) = ${b}"
+print "Field    energy (eV) = ${myfield}"
+write_data   /home/work/gyrudgyrud21/25.01/NR_Test/cubic/cubic_relax_0.00.data

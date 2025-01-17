@@ -55,7 +55,7 @@ cd "$CNMP_LAMMPS_PATH" || exit 1
 mkdir -p build
 cd build || exit 1
 
-export VIRTUAL_ENV=~/base/miniconda3/envs/MLMD_torch
+export VIRTUAL_ENV=~/base/miniconda3/envs/cignn_env
 export CMAKE_PREFIX_PATH="$VIRTUAL_ENV"
 export OMPI_CXX="$(which g++)"
 
