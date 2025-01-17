@@ -30,14 +30,25 @@ def CNMP_initialize(gpu=True, gpu_name='cuda:0', e_field_list=False):
 
     basePath = os.path.dirname(os.path.abspath(__file__))
     config_dir = os.path.normpath(os.path.join(basePath, 'config'))
-    config_yml = os.path.normpath(os.path.join(config_dir, 'config.yaml'))
-    config = yaml.safe_load(open(config_yml, 'r'))
-    log_file.write("config_yml = " + config_yml + "\n")
+    yaml_files = [f for f in os.listdir(config_dir) if f.endswith('.yaml')]
+    if not yaml_files:
+        raise FileNotFoundError("No .yaml files found in the 'config' directory.")
+    config_yml = os.path.normpath(os.path.join(config_dir, yaml_files[0]))
+    with open(config_yml, 'r') as file:
+        config = yaml.safe_load(file)
 
     chekpt_dir = os.path.normpath(os.path.join(basePath, 'checkpoint'))
-    checkpoint = os.path.normpath(os.path.join(chekpt_dir, 'nvt.pth.tar'))
-    qeq_checkpoint = os.path.normpath(os.path.join(chekpt_dir, 'nvt_q.pth.tar'))
+    pth_files = [f for f in os.listdir(chekpt_dir) if f.endswith('.pth.tar')]
+    if not pth_files:
+        raise FileNotFoundError("No .pth.tar files found in the 'checkpoint' directory.")
+    checkpoint = os.path.normpath(os.path.join(chekpt_dir, pth_files[0]))
+    if 'data' not in config:
+        raise KeyError("Key 'data' not found in the configuration file.")
+    qeq_checkpoint = config['data']['q_model']
+
+    log_file.write("config_yml = " + config_yml + "\n")
     log_file.write("checkpoint = " + checkpoint + "\n")
+    log_file.write("qeq_checkpoint = " + str(qeq_checkpoint) + "\n")
 
     max_nbr = config['model'].get('max_nbr', 50)
     cutoff = config['model'].get('cutoff', 6.0)
@@ -174,6 +185,7 @@ def CNMP_get_energy_forces_and_charge(cell, atomic_numbers, positions):
         e_field_s, e_field_e, axis = e_field_params
         p_x, p_y, p_z = calc_polarization(myAtoms, charge, ase=True, unit_change=False) # polarization unit is e * Angstrom
         p = [p_x, p_y, p_z][axis]
+        print('polarization', p)
 
         if e_field_s == e_field_e:
             E = e_field_s

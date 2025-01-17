@@ -11,8 +11,8 @@ mass         1 178.49
 mass         2 15.9994
 group Hf type 1
 group O type 2
-pair_style   MPHP/gpu 'cuda:0' /home/work/gyrudgyrud21/MPHP/lammps/potentials/MPHP 0.00 0.00 0.00
-pair_coeff    * *  MPHP Hf O
+pair_style   CNMP/gpu 'cuda:0' /home/work/seonghun/CIGNN/CIGNN/cnmp/lammps/potentials/CNMP +0.40 +0.40 2
+pair_coeff    * *  CNMP Hf O
 variable natoms equal  "count(all)"
 variable teng   equal  "pe"
 variable a      equal  "lx"
@@ -34,4 +34,4 @@ print "Number of atoms = ${natoms}"
 print "Lattice constant (Angstoms) = ${a}"
 print "Cohesive energy (eV/atom) = ${b}"
 print "Field    energy (eV) = ${myfield}"
-write_data   /home/work/gyrudgyrud21/25.01/NR_Test/cubic/cubic_relax_0.00.data
+write_data   ./cubic_relax_0.00.data

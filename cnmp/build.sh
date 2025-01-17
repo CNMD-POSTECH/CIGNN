@@ -49,7 +49,7 @@ if [ -n "$CHECKPOINT_FILE" ]; then
   echo "Checkpoint file copied to $CHECKPOINT_DIR"
 fi
 
-sh ./patch_lammps.sh -e "$CNMP_LAMMPS_PATH" 
+sh ./patch_lammps.sh -e "$CNMP_LAMMPS_PATH"
 
 cd "$CNMP_LAMMPS_PATH" || exit 1
 mkdir -p build

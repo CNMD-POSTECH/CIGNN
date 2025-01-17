@@ -1,0 +1,14 @@
+
+gpu (in)   = True
+gpu (eff)  = True
+gpu (number) = cuda:0
+config_yml = /home/work/seonghun/CIGNN/CIGNN/cnmp/lammps/potentials/CNMP/config/run_train.yaml
+checkpoint = /home/work/seonghun/CIGNN/CIGNN/cnmp/lammps/potentials/CNMP/checkpoint/grad.pth.tar
+qeq_checkpoint = /home/work/seonghun/CIGNN/CIGNN/example-1/grad_q.pth.tar
+max_neigh  = 50
+cutoff     = 6.0
+energy_mean = {tensor([8], device='cuda:0'): tensor([-12.8939], device='cuda:0'), tensor([72], device='cuda:0'): tensor([-6.4469], device='cuda:0')}
+species_force_rms = {tensor([8], device='cuda:0'): tensor(1.1354, device='cuda:0'), tensor([72], device='cuda:0'): tensor(1.4578, device='cuda:0')}
+atom_type = tensor([[ 8.],
+        [72.]], device='cuda:0')
+E-field = [0.4000000059604645, 0.4000000059604645, 2]

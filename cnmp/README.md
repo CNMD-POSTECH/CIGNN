@@ -9,7 +9,7 @@ CNMP is the machine learning potential of the CIGNN (**Charge Integrated Graph N
 1. Activate the environment: `conda activate cignn_env`
 2. Clone the stable branch of LAMMPS: `git clone -b stable https://github.com/lammps/lammps.git lammps`
 3. Set the environment parameters according to your system in the `build.sh`.
-4. Build LAMMPS: `sh build.sh --path=../lammps --config=<config_path> --checkpoint=<checkpoint_path>`
+4. Build LAMMPS: `bash build.sh --path <lammps_path> --config <train_config_path> --checkpoint <trained_checkpoint_path>`
 
 ---
 
