@@ -27,7 +27,7 @@ def train(config):
         run=wandb.init(project=config['wandb_project'], name=config['wandb_name'], dir=os.path.join(config['path'],'wandb_logs'))
          
     if config['device']['number']:
-        device=torch.device(f"cuda{config['device']['number']}" if torch.cuda.is_available() else "cpu")
+        device=torch.device(f"cuda:{config['device']['number']}" if torch.cuda.is_available() else "cpu")
     else:
         device=torch.device("cuda" if torch.cuda.is_available() else "cpu")
  

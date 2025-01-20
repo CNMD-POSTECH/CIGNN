@@ -47,7 +47,6 @@ class QEQ(nn.Module):
         self.use_A_matrix=True
         COULOMB_FACTOR = 14.399645478425668 # V*angstrom/e
         self.scaled_coulomb_factor=COULOMB_FACTOR/self.energy_scale
-        self.norm=Crystal_Norm(self.atom_fea_len)
         electronegativities = [
                                 0,  # 0 placeholder
                                 2.20,  # Hydrogen
