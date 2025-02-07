@@ -100,10 +100,6 @@ def train(config):
         model_args=argparse.Namespace(**model_data['args'])
 
     if config['wandb'] :
-        config['model']['q_energy_mean']=str(q_energy_mean)
-        config['model']['energy_mean']=str(energy_mean)
-        config['model']['force_rms']=str(force_rms)
-        config['model']['species_force_rms']=str(species_force_rms)
         wandb.config.update(config)
     if config['resume'] !='None':
         model=InvCNMD_Q(

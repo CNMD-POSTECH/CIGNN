@@ -1,7 +1,7 @@
 type : 'train' # predict or train
 path: 'example-1' # Specify a unique folder name for each new training run. Ensure this name does not overlap with any existing folder to prevent overwriting or conflicts with previous versions.
 test: True  # do test
-direct: False # if train charge model, it should be True
+direct: True # if train charge model, it should be True
 
 
 wandb : False
@@ -47,7 +47,7 @@ resume : None #path to latest checkpoint (default: none) (ex)'/home/idealhun92/M
 start_epoch : 0 # 'manual epoch number (useful on restarts)'
 
 epochs : 10 # number of total epochs to  run 
-batch :  16  # mini-batch size
+batch :  2  # mini-batch size
 print_freq : 1 # print frequency (default: 10)
 
 
