@@ -55,8 +55,11 @@ cd "$CNMP_LAMMPS_PATH" || exit 1
 mkdir -p build
 cd build || exit 1
 
-export VIRTUAL_ENV=~/base/miniconda3/envs/cignn_env
+export VIRTUAL_ENV=/scratch/x3100a06/miniconda3/envs/cignn_env
+export LD_LIBRARY_PATH=$VIRTUAL_ENV/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
 export CMAKE_PREFIX_PATH="$VIRTUAL_ENV"
+export PATH=$CUDA_HOME/bin:$PATH
 export OMPI_CXX="$(which g++)"
 
 cmake ../cmake \
@@ -66,6 +69,7 @@ cmake ../cmake \
   -DPYTHON_INCLUDE_DIR="$(python -c "from sysconfig import get_paths; print(get_paths()['include'])")" \
   -DPYTHON_LIBRARY="$VIRTUAL_ENV/lib/libpython3.12.so" \
   -DPython3_ROOT_DIR="$VIRTUAL_ENV" \
+  -DPKG_EXTRA-FIX=ON \
   -DPKG_PYTHON=ON \
   -DPKG_OPT=ON
 

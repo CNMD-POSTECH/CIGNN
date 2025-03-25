@@ -49,8 +49,8 @@ def CNMP_initialize(gpu=True, gpu_name='cuda:0', e_field_list=False):
     log_file.write("checkpoint = " + checkpoint + "\n")
     log_file.write("qeq_checkpoint = " + str(qeq_checkpoint) + "\n")
 
-    max_nbr = config['model'].get('max_nbr', 50)
-    cutoff = config['model'].get('cutoff', 6.0)
+    max_nbr = config['data'].get('max_nbr', 16)
+    cutoff = config['data'].get('cutoff', 5.0)
 
     log_file.write("max_neigh  = " + str(max_nbr) + "\n")
     log_file.write("cutoff     = " + str(cutoff) + "\n")
@@ -132,7 +132,8 @@ def CNMP_initialize(gpu=True, gpu_name='cuda:0', e_field_list=False):
                     charge=model_data['args']['data']['charge'],
                     q_model=qeq_checkpoint,
                     e_field=e_field_list if e_field_bool else False,
-                    device=map_location)
+                    device=map_location,
+                    atom_type=atom_type)
 
     global e_field_params
     e_field_params = e_field_list
