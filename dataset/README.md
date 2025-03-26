@@ -54,9 +54,6 @@ The dataset is split into training, validation, and test sets using an **8:1:1 r
 
 ## **Q Dataset (Charge Data) Details**
 
-- Extracted every **10 fs**
-- Temperature distribution is not explicitly recorded, but assumed to cover a wide thermal range
-
 ### 🔹 Atom Count Distribution
 | Number of Atoms | Sample Count |
 |------------------|---------------|
