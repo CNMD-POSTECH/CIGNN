@@ -4,15 +4,6 @@ This repository contains datasets tailored for the development of machine learni
 
 ---
 
-## **Dataset Structure**
-
-The datasets are organized as follows:
-
-- **EF Dataset**: Contains structure, atom_number, lattice, energy and force data.
-- **Q Dataset**: Contains structure, atom_number, lattice, energy, force and charge data.
-
----
-
 ## **Dataset Split**
 
 The dataset is split into training, validation, and test sets using an **8:1:1 ratio**, ensuring a balanced distribution of samples.
@@ -26,7 +17,7 @@ The dataset is split into training, validation, and test sets using an **8:1:1 r
 
 ## **EF Dataset Details**
 
-### 🔹 Atom Count Distribution
+#### Atom Count Distribution
 | Number of Atoms | Sample Count |
 |------------------|---------------|
 | 96               | 60,000        |
@@ -34,7 +25,7 @@ The dataset is split into training, validation, and test sets using an **8:1:1 r
 | 94               | 100,000       |
 | 93               | 141,386       |
 
-### 🔹 Temperature Distribution
+#### Temperature Distribution
 | Temperature (K) | Sample Count |
 |------------------|---------------|
 | 300              | 35,000        |
@@ -54,7 +45,7 @@ The dataset is split into training, validation, and test sets using an **8:1:1 r
 
 ## **Q Dataset (Charge Data) Details**
 
-### 🔹 Atom Count Distribution
+#### Atom Count Distribution
 | Number of Atoms | Sample Count |
 |------------------|---------------|
 | 96               | 3,500         |
@@ -62,7 +53,7 @@ The dataset is split into training, validation, and test sets using an **8:1:1 r
 | 94               | 5,500         |
 | 93               | 9,000         |
 
-### 🔹 Temperature Distribution
+#### Temperature Distribution
 | Temperature (K) | Sample Count |
 |------------------|---------------|
 | 300              | 3,000         |
