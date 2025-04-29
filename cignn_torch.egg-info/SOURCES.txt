@@ -1,9 +1,0 @@
-README.md
-pyproject.toml
-cignn/__init__.py
-cignn_torch.egg-info/PKG-INFO
-cignn_torch.egg-info/SOURCES.txt
-cignn_torch.egg-info/dependency_links.txt
-cignn_torch.egg-info/entry_points.txt
-cignn_torch.egg-info/requires.txt
-cignn_torch.egg-info/top_level.txt

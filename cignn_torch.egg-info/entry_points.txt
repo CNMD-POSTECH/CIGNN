@@ -1,4 +1,0 @@
-[console_scripts]
-cignn-predict = script.run_predict:main
-cignn-train = script.run_train:main
-cignn-train-q = script.run_train_q:main

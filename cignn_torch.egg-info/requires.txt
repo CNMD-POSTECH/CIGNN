@@ -1,8 +1,0 @@
-pymatgen
-contextlib2
-torch-ema
-ipykernel
-seaborn
-wandb
-e3nn
-ase
