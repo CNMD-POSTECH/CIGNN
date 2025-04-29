@@ -84,7 +84,7 @@ def train(config):
     if config['wandb'] :
         parser=argparse.ArgumentParser(description='Train')
         os.makedirs(os.path.join(config['path'],'wandb_logs'), exist_ok=True)
-        run=wandb.init(project=config['wandb_project'], name=config['wandb_name'], dir=os.path.join(config['path'],'wandb_logs'))
+        run=wandb.init(mode='offline', project=config['wandb_project'], name=config['wandb_name'], dir=os.path.join(config['path'],'wandb_logs'))
          
     if config['device']['number']:
         device=torch.device(f"cuda:{config['device']['number']}" if torch.cuda.is_available() else "cpu")

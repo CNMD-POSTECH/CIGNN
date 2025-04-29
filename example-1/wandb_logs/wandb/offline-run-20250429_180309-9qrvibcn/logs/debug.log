@@ -1,0 +1,24 @@
+2025-04-29 18:03:09,498 INFO    MainThread:34282 [wandb_setup.py:_flush():68] Current SDK version is 0.19.5
+2025-04-29 18:03:09,498 INFO    MainThread:34282 [wandb_setup.py:_flush():68] Configure stats pid to 34282
+2025-04-29 18:03:09,498 INFO    MainThread:34282 [wandb_setup.py:_flush():68] Loading settings from /home01/x3100a06/.config/wandb/settings
+2025-04-29 18:03:09,498 INFO    MainThread:34282 [wandb_setup.py:_flush():68] Loading settings from /scratch/x3100a06/MLP_Paper/CIGNN/wandb/settings
+2025-04-29 18:03:09,498 INFO    MainThread:34282 [wandb_setup.py:_flush():68] Loading settings from environment variables
+2025-04-29 18:03:09,498 INFO    MainThread:34282 [wandb_init.py:setup_run_log_directory():637] Logging user logs to example-1/wandb_logs/wandb/offline-run-20250429_180309-9qrvibcn/logs/debug.log
+2025-04-29 18:03:09,498 INFO    MainThread:34282 [wandb_init.py:setup_run_log_directory():638] Logging internal logs to example-1/wandb_logs/wandb/offline-run-20250429_180309-9qrvibcn/logs/debug-internal.log
+2025-04-29 18:03:09,498 INFO    MainThread:34282 [wandb_init.py:init():756] calling init triggers
+2025-04-29 18:03:09,499 INFO    MainThread:34282 [wandb_init.py:init():761] wandb.init called with sweep_config: {}
+config: {'_wandb': {}}
+2025-04-29 18:03:09,499 INFO    MainThread:34282 [wandb_init.py:init():789] starting backend
+2025-04-29 18:03:09,709 INFO    MainThread:34282 [wandb_init.py:init():793] sending inform_init request
+2025-04-29 18:03:09,713 INFO    MainThread:34282 [backend.py:_multiprocessing_setup():97] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2025-04-29 18:03:09,714 INFO    MainThread:34282 [wandb_init.py:init():808] backend started and connected
+2025-04-29 18:03:09,716 INFO    MainThread:34282 [wandb_init.py:init():901] updated telemetry
+2025-04-29 18:03:09,723 INFO    MainThread:34282 [wandb_init.py:init():926] communicating run to backend with 90.0 second timeout
+2025-04-29 18:03:12,483 INFO    MainThread:34282 [wandb_init.py:init():984] starting run threads in backend
+2025-04-29 18:03:15,930 INFO    MainThread:34282 [wandb_run.py:_console_start():2385] atexit reg
+2025-04-29 18:03:15,930 INFO    MainThread:34282 [wandb_run.py:_redirect():2235] redirect: wrap_raw
+2025-04-29 18:03:15,930 INFO    MainThread:34282 [wandb_run.py:_redirect():2300] Wrapping output streams.
+2025-04-29 18:03:15,930 INFO    MainThread:34282 [wandb_run.py:_redirect():2325] Redirects installed.
+2025-04-29 18:03:16,000 INFO    MainThread:34282 [wandb_init.py:init():1026] run started, returning control to user process
+2025-04-29 18:03:16,232 INFO    MainThread:34282 [wandb_run.py:_config_callback():1253] config_cb None None {'type': 'train', 'path': 'example-1', 'test': True, 'direct': True, 'wandb': True, 'wandb_name': 'Test-1', 'wandb_project': 'final_benchmark', 'device': {'number': False}, 'data': {'interval': 1, 'atom_type': [8, 72], 'radius': 5, 'max_nbr': 16, 'nbr_mode': 'nbr', 'scale_method': 'species', 'small_angle': False, 'local_cutoff_type': 'mean', 'charge': True, 'q_model': 'None', 'structure_package': 'pymatgen', 'site': './script/example_dataset', 'train_data': ['train_example.npy'], 'valid_data': ['valid_example.npy'], 'test_data': ['test_example.npy'], 'preprocess': {'bool': True, 'name': ['perfect.npy', 'single.npy', 'double.npy'], 'train_size': 320, 'valid_size': 320, 'test_size': 320}}, 'target_list': ['charge'], 'resume': 'None', 'start_epoch': 0, 'epochs': 10, 'batch': 32, 'print_freq': 1, 'save': {'best_save': 'grad_q.pth.tar', 'check_save': 'grad_q_check.pth.tar'}, 'model': {'n_h': 2, 'lmax': 2, 'n_conv': 3, 'num_radial': 5, 'num_spherical': 7, 'atom_fea_len': 64, 'nbr_fea_len': 64}, 'optimizer': {'algo': 'Adam', 'lr': 0.001, 'weight_decay': 0.0, 'momentum': 0.9}, 'scheduler': {'algo': 'ReduceLROnPlateau', 'gamma': 0.5, 'patience': 10, 'threshold': 1e-05, 'threshold_mode': 'rel', 'cooldown': 10, 'min_lr': 1e-07, 'eps': 1e-08}, 'stop': {'early_stop': 1e-08}, 'loss': {'best_mae_error': 20}}
+2025-04-29 18:03:27,707 WARNING MsgRouterThr:34282 [router.py:message_loop():75] message_loop has been closed

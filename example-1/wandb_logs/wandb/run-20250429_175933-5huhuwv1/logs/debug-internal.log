@@ -1,0 +1,19 @@
+{"time":"2025-04-29T17:59:33.909063809+09:00","level":"INFO","msg":"stream: starting","core version":"0.19.5","symlink path":"example-1/wandb_logs/wandb/run-20250429_175933-5huhuwv1/logs/debug-core.log"}
+{"time":"2025-04-29T17:59:34.027107141+09:00","level":"INFO","msg":"created new stream","id":"5huhuwv1"}
+{"time":"2025-04-29T17:59:34.027206411+09:00","level":"INFO","msg":"stream: started","id":"5huhuwv1"}
+{"time":"2025-04-29T17:59:34.027271734+09:00","level":"INFO","msg":"handler: started","stream_id":"5huhuwv1"}
+{"time":"2025-04-29T17:59:34.027303155+09:00","level":"INFO","msg":"sender: started","stream_id":"5huhuwv1"}
+{"time":"2025-04-29T17:59:34.027297654+09:00","level":"INFO","msg":"writer: Do: started","stream_id":"5huhuwv1"}
+{"time":"2025-04-29T17:59:34.03274738+09:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": dial tcp: lookup api.wandb.ai on [::1]:53: read udp [::1]:40608->[::1]:53: read: connection refused"}
+{"time":"2025-04-29T17:59:36.142460407+09:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": dial tcp: lookup api.wandb.ai on [::1]:53: read udp [::1]:55099->[::1]:53: read: connection refused"}
+{"time":"2025-04-29T17:59:40.292322366+09:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": dial tcp: lookup api.wandb.ai on [::1]:53: read udp [::1]:39514->[::1]:53: read: connection refused"}
+{"time":"2025-04-29T17:59:49.545923076+09:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": dial tcp: lookup api.wandb.ai on [::1]:53: read udp [::1]:41862->[::1]:53: read: connection refused"}
+{"time":"2025-04-29T18:00:06.087222466+09:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": dial tcp: lookup api.wandb.ai on [::1]:53: read udp [::1]:50253->[::1]:53: read: connection refused"}
+{"time":"2025-04-29T18:00:44.033097689+09:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": dial tcp: lookup api.wandb.ai on [::1]:53: read udp [::1]:44503->[::1]:53: read: connection refused"}
+{"time":"2025-04-29T18:01:04.135875219+09:00","level":"INFO","msg":"stream: closing","id":"5huhuwv1"}
+{"time":"2025-04-29T18:01:04.135993682+09:00","level":"INFO","msg":"handler: closed","stream_id":"5huhuwv1"}
+{"time":"2025-04-29T18:01:04.136030682+09:00","level":"INFO","msg":"writer: Close: closed","stream_id":"5huhuwv1"}
+{"time":"2025-04-29T18:01:04.136077327+09:00","level":"ERROR","msg":"sender: upsertRun:","error":"failed to upsert bucket: api: failed sending: context canceled"}
+{"time":"2025-04-29T18:01:04.136146321+09:00","level":"INFO","msg":"sender: closed","stream_id":"5huhuwv1"}
+{"time":"2025-04-29T18:01:04.136208826+09:00","level":"WARN","msg":"runwork: ignoring record after close","work":{}}
+{"time":"2025-04-29T18:01:04.136642782+09:00","level":"INFO","msg":"stream: closed","id":"5huhuwv1"}

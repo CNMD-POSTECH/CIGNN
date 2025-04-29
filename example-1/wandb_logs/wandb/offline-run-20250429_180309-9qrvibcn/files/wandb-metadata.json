@@ -1,0 +1,101 @@
+{
+  "os": "Linux-3.10.0-1160.el7.x86_64-x86_64-with-glibc2.17",
+  "python": "CPython 3.12.7",
+  "startedAt": "2025-04-29T09:03:09.714436Z",
+  "args": [
+    "--config=./script/run_train_q.yaml"
+  ],
+  "program": "/home01/x3100a06/.local/bin/cignn-train-q",
+  "git": {
+    "remote": "https://github.com/CNMD-POSTECH/CIGNN.git",
+    "commit": "2229fbe128a1053cd7acdf5c3887feadb406596e"
+  },
+  "root": "example-1/wandb_logs",
+  "host": "gpu20",
+  "executable": "/apps/applications/miniconda3/envs/pytorch_2.5.0/bin/python",
+  "cpu_count": 40,
+  "cpu_count_logical": 40,
+  "gpu": "Tesla V100-PCIE-32GB",
+  "gpu_count": 1,
+  "disk": {
+    "/": {
+      "total": "954157465600",
+      "used": "103983431680"
+    }
+  },
+  "memory": {
+    "total": "405222105088"
+  },
+  "cpu": {
+    "count": 40,
+    "countLogical": 40
+  },
+  "gpu_nvidia": [
+    {
+      "name": "Tesla V100-PCIE-32GB",
+      "memoryTotal": "34359738368",
+      "cudaCores": 5120,
+      "architecture": "Volta"
+    }
+  ],
+  "slurm": {
+    "cluster_name": "neuron",
+    "conf": "/etc/slurm/slurm.conf",
+    "cpu_bind": "quiet,mask_cpu:0xC0000C0000",
+    "cpu_bind_list": "0xC0000C0000",
+    "cpu_bind_type": "mask_cpu:",
+    "cpu_bind_verbose": "quiet",
+    "cpus_on_node": "4",
+    "cpus_per_task": "4",
+    "gpus_on_node": "1",
+    "gtids": "0",
+    "job_account": "neuron_user",
+    "job_cpus_per_node": "4",
+    "job_end_time": "1746086068",
+    "job_gid": "6041375",
+    "job_group": "rd1375",
+    "job_id": "448967",
+    "job_name": "bash",
+    "job_nodelist": "gpu20",
+    "job_num_nodes": "1",
+    "job_partition": "cas_v100_4",
+    "job_qos": "normal",
+    "job_start_time": "1745913268",
+    "job_uid": "604137506",
+    "job_user": "x3100a06",
+    "jobid": "448967",
+    "launch_node_ipaddr": "10.151.0.251",
+    "localid": "0",
+    "mpi_type": "pmi2",
+    "nnodes": "1",
+    "nodeid": "0",
+    "nodelist": "gpu20",
+    "nprocs": "1",
+    "ntasks": "1",
+    "prio_process": "0",
+    "procid": "0",
+    "pty_port": "39317",
+    "pty_win_col": "116",
+    "pty_win_row": "50",
+    "script_context": "prolog_task",
+    "srun_comm_host": "10.151.0.251",
+    "srun_comm_port": "43986",
+    "step_gpus": "2",
+    "step_id": "0",
+    "step_launcher_port": "43986",
+    "step_nodelist": "gpu20",
+    "step_num_nodes": "1",
+    "step_num_tasks": "1",
+    "step_tasks_per_node": "1",
+    "stepid": "0",
+    "submit_dir": "/scratch/x3100a06/MLP_Paper/CIGNN/modelset",
+    "submit_host": "glogin01",
+    "task_pid": "14118",
+    "tasks_per_node": "1",
+    "topology_addr": "gpu20",
+    "topology_addr_pattern": "node",
+    "tres_per_task": "cpu=4",
+    "umask": "0022"
+  },
+  "cudaVersion": "12.4"
+}

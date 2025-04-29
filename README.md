@@ -67,6 +67,15 @@ The example datasets are located in the **script/example_dataset** folder, and t
 
 ---
 
+### <span style="font-size:larger;">Pretrained Models</span>
+
+Pretrained model files are available for immediate use without additional training:
+
+- Charge model (CPM): `./modelset/q.pth.tar`
+- Energy & Force model (EFPM): `./modelset/ef.pth.tar`
+
+---
+
 ## <span style="font-size:larger;">Molecular Dynamics</span>
 
 To perform molecular dynamics simulations using the generated potentials, refer to the README file located in the cnmp folder. 
@@ -103,7 +112,3 @@ CIGNN is distributed under the [MIT License](MIT.md).
 ## <span style="font-size:larger;">Contributors</span>
 
 This repository includes contributions from Hyo Gyeong Shin, Seong Hun Kim, Donghwa Lee, and other collaborators.
-
-<a href="https://github.com/CNMD-POSTECH/GB-CGCNN/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=CNMD-POSTECH/GB-CGCNN" />
-</a>
