@@ -1,69 +1,67 @@
-LAMMPS (29 Aug 2024 - Update 1)
+LAMMPS (29 Aug 2024 - Update 2)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/comm.cpp:98)
   using 1 OpenMP thread(s) per MPI task
-clear
-  using 1 OpenMP thread(s) per MPI task
+# Defining the units
+#-------------------
 units         metal
+
+# Defining atom style and boundary conditions
+#--------------------------------------------
 dimension     3
 boundary      p p p
 atom_style    charge
-atom_modify   map yes
+
 neighbor      1.0 bin
-neigh_modify  delay 0 every 1 check no
-read_data     /home/work/gyrudgyrud21/25.01/Input/cubic.data
+neigh_modify  delay 0 every 1 check yes
+
+# Defining the simulation box
+#----------------------------
+read_data     /scratch/x3100a06/MLP_Paper/CIGNN/cnmp/example/example.data
 Reading data file ...
   orthogonal box = (0 0 0) to (10.129447 10.129447 10.129447)
   1 by 1 by 1 MPI processor grid
   reading atoms ...
   96 atoms
-  read_data CPU = 0.018 seconds
+  reading velocities ...
+  96 velocities
+  read_data CPU = 0.001 seconds
+
 mass         1 178.49
 mass         2 15.9994
+
 group Hf type 1
 32 atoms in group Hf
 group O type 2
 64 atoms in group O
-pair_style   CNMP/gpu 'cuda:0' /home/work/seonghun/CIGNN/CIGNN/cnmp/lammps/potentials/CNMP +0.40 +0.40 2
+
+## Defining interaction potential
+##-------------------------------
+pair_style   CNMP/gpu  'cuda' /scratch/x3100a06/MLP_Paper/CIGNN/cnmp/lammps/potentials/CNMP 0.0 0.0 0
 pair_coeff    * *  CNMP Hf O
-variable natoms equal  "count(all)"
-variable teng   equal  "pe"
-variable a      equal  "lx"
-variable b      equal  "v_teng/v_natoms"
-compute       myChi all chi
-compute       myPressure all pressure NULL virial
-fix           1 all momentum 1 linear 1 1 1
-dump          myDump all custom 1 ./cubic_0.00.lammpstrj id element x y z q c_myChi fx fy fz
-dump_modify   myDump sort id element Hf O
-thermo_style  custom step time cpu pe etotal lx ly lz press vol density
+
+# Defining the output format (ie. customize thermo_style)
+##--------------------------------------------------------
+thermo_style  custom step time cpu pe ke etotal temp vol
 thermo        1
-# Relaxation steps
-min_style     hftn
-min_modify    line quadratic
-minimize      1e-10 1e-10 10000 10000
 
-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE
+# Sudden increasing temperature
+##--------------------------------------------------------
+velocity      all create 1100.0 123456 loop geom
+fix           1 all nvt temp 1100.0 1100.0 0.001
+timestep      0.001
+restart       10000 out.restart
 
-Your simulation uses code contributions which should be cited:
-
-- Type Label Framework: https://doi.org/10.1021/acs.jpcb.3c08419
-
-@Article{Gissinger24,
- author = {Jacob R. Gissinger, Ilia Nikiforov, Yaser Afshar, Brendon Waters, Moon-ki Choi, Daniel S. Karls, Alexander Stukowski, Wonpil Im, Hendrik Heinz, Axel Kohlmeyer, and Ellad B. Tadmor},
- title = {Type Label Framework for Bonded Force Fields in LAMMPS},
- journal = {J. Phys. Chem. B},
- year =    2024,
- volume =  128,
- number =  13,
- pages =   {3282–-3297}
-}
-
-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE
-
+# Run the simulation
+##--------------------------------------------------------
+dump          myDump all custom 1 /scratch/x3100a06/MLP_Paper/CIGNN/cnmp/example/xyz.lammpstrj id element x y z q
+dump_modify   myDump sort id element Hf O
+run           80000
 Neighbor list info ...
-  update: every = 1 steps, delay = 0 steps, check = no
+  update: every = 1 steps, delay = 0 steps, check = yes
   max neighbors/atom: 2000, page size: 100000
-  master list distance cutoff = 7
-  ghost atom cutoff = 7
-  binsize = 3.5, bins = 3 3 3
+  master list distance cutoff = 6
+  ghost atom cutoff = 6
+  binsize = 3, bins = 4 4 4
   1 neighbor lists, perpetual/occasional/extra = 1 0 0
   (1) pair CNMP/gpu, perpetual
       attributes: full, newton on
@@ -71,70 +69,54 @@ Neighbor list info ...
       stencil: full/bin/3d
       bin: standard
 WARNING: Pair style CNMP does currently not support virial pressure (src/ML-CNMP/pair_CNMP.cpp:116)
-Per MPI rank memory allocation (min/avg/max) = 5.38 | 5.38 | 5.38 Mbytes
-   Step          Time           CPU           PotEng         TotEng           Lx             Ly             Lz           Press          Volume        Density    
-         0   0              0             -1074.6071     -1074.6071      10.129447      10.129447      10.129447      0              1039.3391      10.76145     
-         1   0.001          2.9152852     -1074.2681     -1074.2681      10.129447      10.129447      10.129447      0              1039.3391      10.76145     
-         2   0.002          5.379854      -1074.2681     -1074.2681      10.129447      10.129447      10.129447      0              1039.3391      10.76145     
-         3   0.003          7.8388443     -1074.2681     -1074.2681      10.129447      10.129447      10.129447      0              1039.3391      10.76145     
-         4   0.004          10.297712     -1074.2681     -1074.2681      10.129447      10.129447      10.129447      0              1039.3391      10.76145     
-         5   0.005          12.761179     -1074.2681     -1074.2681      10.129447      10.129447      10.129447      0              1039.3391      10.76145     
-         6   0.006          15.232369     -1074.2681     -1074.2681      10.129447      10.129447      10.129447      0              1039.3391      10.76145     
-         7   0.007          17.693894     -1074.2681     -1074.2681      10.129447      10.129447      10.129447      0              1039.3391      10.76145     
-         8   0.008          20.151906     -1074.2681     -1074.2681      10.129447      10.129447      10.129447      0              1039.3391      10.76145     
-         9   0.009          22.616443     -1074.2681     -1074.2681      10.129447      10.129447      10.129447      0              1039.3391      10.76145     
-        10   0.01           25.069058     -1074.2681     -1074.2681      10.129447      10.129447      10.129447      0              1039.3391      10.76145     
-        11   0.011          27.533252     -1074.2681     -1074.2681      10.129447      10.129447      10.129447      0              1039.3391      10.76145     
-        12   0.012          29.987396     -1074.2681     -1074.2681      10.129447      10.129447      10.129447      0              1039.3391      10.76145     
-        13   0.013          32.451158     -1074.2681     -1074.2681      10.129447      10.129447      10.129447      0              1039.3391      10.76145     
-        14   0.014          34.89986      -1074.2681     -1074.2681      10.129447      10.129447      10.129447      0              1039.3391      10.76145     
-        15   0.015          37.364919     -1074.2681     -1074.2681      10.129447      10.129447      10.129447      0              1039.3391      10.76145     
-        16   0.016          39.818879     -1074.2681     -1074.2681      10.129447      10.129447      10.129447      0              1039.3391      10.76145     
-        17   0.017          42.280137     -1074.2681     -1074.2681      10.129447      10.129447      10.129447      0              1039.3391      10.76145     
-Loop time of 42.2805 on 1 procs for 16 steps with 96 atoms
-
-75.6% CPU use with 1 MPI tasks x 1 OpenMP threads
-
-Minimization stats:
-  Stopping criterion = trust region too small
-  Energy initial, next-to-last, final = 
-     -1074.60714762074  -1074.60714762074    -1074.268085157
-  Force two-norm initial, final = 10.214132 10.120944
-  Force max component initial, final = 1.9651992 1.9401741
-  Final line search alpha, max atom move = 0 0
-  Iterations, force evaluations = 16 136
-
-MPI task timing breakdown:
-Section |  min time  |  avg time  |  max time  |%varavg| %total
----------------------------------------------------------------
-Pair    | 42.203     | 42.203     | 42.203     |   0.0 | 99.82
-Neigh   | 0.062552   | 0.062552   | 0.062552   |   0.0 |  0.15
-Comm    | 0.0067869  | 0.0067869  | 0.0067869  |   0.0 |  0.02
-Output  | 0.0061313  | 0.0061313  | 0.0061313  |   0.0 |  0.01
-Modify  | 0          | 0          | 0          |   0.0 |  0.00
-Other   |            | 0.001939   |            |       |  0.00
-
-Nlocal:             96 ave          96 max          96 min
-Histogram: 1 0 0 0 0 0 0 0 0 0
-Nghost:           1269 ave        1269 max        1269 min
-Histogram: 1 0 0 0 0 0 0 0 0 0
-Neighs:              0 ave           0 max           0 min
-Histogram: 1 0 0 0 0 0 0 0 0 0
-FullNghs:        12096 ave       12096 max       12096 min
-Histogram: 1 0 0 0 0 0 0 0 0 0
-
-Total # of neighbors = 12096
-Ave neighs/atom = 126
-Neighbor list builds = 137
-Dangerous builds not checked
-print "Number of atoms = ${natoms}"
-Number of atoms = 96
-print "Lattice constant (Angstoms) = ${a}"
-Lattice constant (Angstoms) = 10.129447365724
-print "Cohesive   energy (eV/atom) = ${b}"
-Cohesive   energy (eV/atom) = -11.1902925537188
-print "Potential  energy (eV) = ${teng}"
-Potential  energy (eV) = -1074.268085157
-write_data   ./cubic_relax_0.00.data
-System init for write_data ...
-Total wall time: 0:01:08
+Per MPI rank memory allocation (min/avg/max) = 3.215 | 3.215 | 3.215 Mbytes
+   Step          Time           CPU           PotEng         KinEng         TotEng          Temp          Volume    
+         0   0              0             -1055.734       13.507685     -1042.2263      1100           1039.3391    
+         1   0.001          0.30352979    -1058.0888      13.421727     -1044.6671      1093           1039.3391    
+         2   0.002          0.62072706    -1057.779       13.586558     -1044.1924      1106.423       1039.3391    
+         3   0.003          0.921895      -1057.3162      14.444962     -1042.8713      1176.3273      1039.3391    
+         4   0.004          1.2189841     -1056.6991      14.001647     -1042.6974      1140.2258      1039.3391    
+         5   0.005          1.5152586     -1055.9826      12.180859     -1043.8018      991.94972      1039.3391    
+         6   0.006          1.8135462     -1055.201       12.20174      -1042.9993      993.65019      1039.3391    
+         7   0.007          2.1138515     -1054.2712      13.962651     -1040.3085      1137.0502      1039.3391    
+         8   0.008          2.4123123     -1053.2435      13.441188     -1039.8023      1094.5848      1039.3391    
+         9   0.009          2.7159269     -1052.2211      12.958193     -1039.2629      1055.2521      1039.3391    
+        10   0.01           3.0145919     -1051.1255      14.570837     -1036.5546      1186.5779      1039.3391    
+        11   0.011          3.3124328     -1049.9657      14.583196     -1035.3825      1187.5844      1039.3391    
+        12   0.012          3.6117832     -1048.7839      12.889048     -1035.8948      1049.6212      1039.3391    
+        13   0.013          3.9136614     -1047.72        12.549573     -1035.1705      1021.976       1039.3391    
+        14   0.014          4.2106454     -1047.004       13.368272     -1033.6357      1088.6469      1039.3391    
+        15   0.015          4.5139158     -1046.3219      13.505656     -1032.8162      1099.8348      1039.3391    
+        16   0.016          4.8118858     -1045.9162      13.275726     -1032.6405      1081.1104      1039.3391    
+        17   0.017          5.1110233     -1045.5438      13.488376     -1032.0554      1098.4276      1039.3391    
+        18   0.018          5.410153      -1045.3424      14.501048     -1030.8414      1180.8946      1039.3391    
+        19   0.019          5.7108354     -1045.4577      15.733748     -1029.724       1281.2797      1039.3391    
+        20   0.02           6.0081385     -1045.4621      13.141596     -1032.3205      1070.1875      1039.3391    
+        21   0.021          6.3128968     -1045.7498      12.308678     -1033.4411      1002.3587      1039.3391    
+        22   0.022          6.6114581     -1045.9663      13.797306     -1032.169       1123.5853      1039.3391    
+        23   0.023          6.9115291     -1046.1981      15.268012     -1030.93        1243.3525      1039.3391    
+        24   0.024          7.2092132     -1046.5252      12.438086     -1034.0872      1012.897       1039.3391    
+        25   0.025          7.5107684     -1046.7485      12.070957     -1034.6776      982.99986      1039.3391    
+        26   0.026          7.8076065     -1047.0171      14.20338      -1032.8137      1156.654       1039.3391    
+        27   0.027          8.1112057     -1047.2347      14.972938     -1032.2618      1219.323       1039.3391    
+        28   0.028          8.4104012     -1047.2728      12.849218     -1034.4236      1046.3776      1039.3391    
+        29   0.029          8.710043      -1047.3306      12.18981      -1035.1408      992.67867      1039.3391    
+        30   0.03           9.0054384     -1047.3484      13.995702     -1033.3527      1139.7417      1039.3391    
+        31   0.031          9.3028217     -1047.2786      15.417145     -1031.8615      1255.4971      1039.3391    
+        32   0.032          9.6011849     -1047.2522      11.562327     -1035.6898      941.57952      1039.3391    
+        33   0.033          9.9020159     -1047.1548      11.21072      -1035.9441      912.94636      1039.3391    
+        34   0.034          10.200194     -1047.2457      14.141068     -1033.1047      1151.5796      1039.3391    
+        35   0.035          10.499295     -1047.1088      14.983504     -1032.1253      1220.1835      1039.3391    
+        36   0.036          10.794716     -1047.0552      12.957452     -1034.0978      1055.1917      1039.3391    
+        37   0.037          11.088687     -1046.9027      12.013758     -1034.8889      978.34186      1039.3391    
+        38   0.038          11.384434     -1046.791       13.882743     -1032.9083      1130.5429      1039.3391    
+        39   0.039          11.685807     -1046.5264      14.91408      -1031.6123      1214.5299      1039.3391    
+        40   0.04           11.985472     -1046.3821      13.580555     -1032.8016      1105.9342      1039.3391    
+        41   0.041          12.281878     -1046.1862      13.037409     -1033.1488      1061.703       1039.3391    
+        42   0.042          12.577649     -1046.0656      13.319908     -1032.7457      1084.7084      1039.3391    
+        43   0.043          12.873794     -1045.9389      13.826214     -1032.1127      1125.9394      1039.3391    
+        44   0.044          13.16783      -1045.894       14.221073     -1031.6729      1158.0948      1039.3391    
+        45   0.045          13.464463     -1045.8048      13.742309     -1032.0625      1119.1066      1039.3391    
+        46   0.046          13.764285     -1045.6459      12.50184      -1033.1441      1018.0889      1039.3391    
+        47   0.047          14.062886     -1045.4066      12.846154     -1032.5605      1046.1281      1039.3391    
+        48   0.048          14.358103     -1045.1585      14.970475     -1030.188       1219.1225      1039
