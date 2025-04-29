@@ -1,0 +1,93 @@
+type : 'train' # predict or train
+path: 'amor-q' # Specify a unique folder name for each new training run. Ensure this name does not overlap with any existing folder to prevent overwriting or conflicts with previous versions.
+test: True  # do test
+direct: True # if train charge model, it should be True
+
+
+wandb : False
+wandb_name : 'amor-q'
+wandb_project : 'potential'
+
+
+device :
+  number : False
+
+
+data:
+  interval : 10
+  atom_type: [8, 72]
+
+  radius : 5 # cutoff distnace for neigborhood atoms it is adjust in rbf
+  max_nbr : 16 # max numbr of neigborhood atoms
+  nbr_mode : nbr # distance or nbr
+  scale_method : species
+  angle_cutoff : 3.5 # angle cut off
+  small_angle: True # give another cutoff for angle feature
+  local_cutoff_type : mean # how to make anglecut off! mean or manual
+  
+  charge : True # considering charge data 
+  q_model : None
+  structure_package : pymatgen # structure form package pymatgen,ase,....
+  
+  site : /scratch/x3100a06/MLP_Paper/CIGNN/dataset
+  train_data : None
+  valid_data : None
+  test_data : None
+  
+  preprocess:
+    bool: True # if train_data, valid_data, test_data are in site, use False
+    name: ['q_data.npy'] # if train_data, valid_data, test_data are in site, Ignore
+    train_ratio : 0.8 # or use train_ratio
+    valid_ratio : 0.1 # or use valid_ratio
+    test_ratio : 0.1 # or use test_ratio
+
+
+target_list : ['charge'] #energy, force,chi_std,charge
+resume : None #path to latest checkpoint (default: none) (ex)'/home/idealhun92/MLMD/HfO2_grad.pth.tar'
+start_epoch : None # 'manual epoch number (useful on restarts)'
+
+epochs : 300 # number of total epochs to  run 
+batch :  8  # mini-batch size
+print_freq : 20 # print frequency (default: 10)
+
+
+save :
+  best_save : q.pth.tar # best model name
+  check_save: q_check.pth.tar # checkpoint model name
+
+
+model :
+  element_len : 2 # number of elements
+
+  n_h : 2 # number of hidden layers after conv
+  lmax : 2
+  n_conv : 3  # number of conv layers
+  num_radial : 5 # number of radial basis functions
+  num_spherical : 7 # number of spherical harmonics
+  
+  h_fea_len : 64 # number of hidden features 
+  atom_fea_len : 64 # number of hidden atom features in conv layers
+  nbr_fea_len : 64 # number of hidden nbr features in conv layers
+  angle_fea_len : 96 # number of hidden angle features in conv layers
+
+
+optimizer : 
+  algo : Adam # choose an optimizer, SGD or Adam or NAdam or AdamW or RAdam 
+  lr :  0.001 # initial learning rate
+  weight_decay : 0.0 # weight decay (default: 0.1)
+  momentum : 0.9 # momentum
+
+
+scheduler :
+  algo : ReduceLROnPlateau # choose an scheduler, MultiStepLR or CosineAnnealingLR or CosineAnnealingWarmUpRestarts or ReduceLROnPlateau or None
+  gamma : 0.5 # multiple in lr
+  patience : 10 # patience for ReduceLROnPlateau
+  threshold : 0.00001 # threshold for ReduceLROnPlateau if target value is not changed in this change
+  threshold_mode : 'rel' # threshold mode for ReduceLROnPlateau
+  cooldown : 10 # cooldown for ReduceLROnPlateau
+  min_lr : 0.0000001 # minimum lr for ReduceLROnPlateau
+  eps : 0.00000001 # eps for ReduceLROnPlateau
+
+
+stop :
+  early_stop : 0.00000001 # early stop
