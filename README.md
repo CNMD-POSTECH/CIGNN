@@ -65,8 +65,6 @@ Make sure to adjust the YAML file to fit your specific dataset and requirements.
 
 The example datasets are located in the **script/example_dataset** folder, and the example models are located in the **example-1** folder.
 
----
-
 ### <span style="font-size:larger;">Pretrained Models</span>
 
 Pretrained model files are available for immediate use without additional training:
