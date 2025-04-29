@@ -17,7 +17,7 @@ CNMP is the machine learning potential of the CIGNN (**Charge Integrated Graph N
 
   ```
   cd cnmp/example
-  sh run.sh
+  sh srun.sh
   ```
 
 ---
