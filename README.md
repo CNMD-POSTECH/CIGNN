@@ -34,6 +34,12 @@ If you need to install a specific version of PyTorch, refer to the official PyTo
 
 ## <span style="font-size:larger;">Usage</span>
 
+Before running the commands, make sure to set the `PYTHONPATH` environment variable:
+
+```bash
+export PYTHONPATH=$(pwd)
+```
+
 ### <span style="font-size:larger;">Train Charge</span>
 
 To train a CIGNN (CPM) model, use the following command:
@@ -76,9 +82,18 @@ Pretrained model files are available for immediate use without additional traini
 
 ## <span style="font-size:larger;">Molecular Dynamics</span>
 
-To perform molecular dynamics simulations using the generated potentials, refer to the README file located in the cnmp folder. 
+To run MD with a trained model, follow these steps:
 
-This document provides detailed instructions for setting up and executing molecular dynamics simulations.
+1. Navigate to the `cnmp` folder:
+
+2. Read the `README.md` file inside the `cnmp` folder for detailed instructions:
+
+---
+
+## <span style="font-size:larger;">Error</span>
+
+If you encounter issues during installation or usage, please refer to the `error.md` file for troubleshooting.  
+If the issue persists, feel free to open an issue in this GitHub repository.
 
 ---
 
