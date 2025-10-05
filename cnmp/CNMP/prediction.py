@@ -1,3 +1,8 @@
+######################################################################################
+NPY_PATH = 'CIGNN/try_1/pq.npy'
+CIGNN_PATH = '/home/work/gyrudgyrud21/CIGNN'
+######################################################################################
+
 import os
 import sys
 import math
@@ -10,10 +15,15 @@ from time import time
 from ase.io import read, write
 
 from generator import AtomsData
-from cignn.utils.multibody.multibody_crystal_graph_generator import Normalizer
+
+from cignn.utils.etc import *
 from cignn.model.invariant_CNMD import InvCNMD
+from cignn.utils.multibody.multibody_crystal_graph_generator import Normalizer
 
 warnings.filterwarnings("ignore")
+
+sys.path.append(f'{CIGNN_PATH}/cignn/utils')
+from etc import *
 
 torch.set_default_dtype(torch.float64)
 
@@ -183,14 +193,24 @@ def CNMP_get_energy_forces_and_charge(cell, atomic_numbers, positions):
 
     if e_field_bool:
         e_field_s, e_field_e, axis = e_field_params
+        p_x, p_y, p_z = compute_amorphous_polarization(myAtoms, 
+                                                       charge, 
+                                                       ase=True, 
+                                                       unit_change=False,
+                                                       e_field=True, 
+                                                       shift_value_path=NPY_PATH)
+        p = [p_x, p_y, p_z][axis]
 
         if e_field_s == e_field_e:
             E = e_field_s
+            potential_energy = -(E * p)
             add_force = (E * charge).reshape(-1, 1)
             forces[:, axis] += add_force.squeeze()
         else:
             print('Not implemented yet')
-
-    energy_field = energy
+        
+        energy_field = energy + potential_energy.item()
+    else:
+        energy_field = energy
 
     return energy, energy_field, forces.tolist(), charge.tolist(), chi.tolist()

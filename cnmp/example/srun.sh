@@ -1,1 +1,0 @@
-mpirun -np 1 /scratch/x3100a06/MLP_Paper/CIGNN/cnmp/lammps/build/lmp -in /scratch/x3100a06/MLP_Paper/CIGNN/cnmp/example/run.lammps

@@ -1,1 +1,22 @@
-.nfs*
+# Python
+__pycache__/
+*.pyc
+.env
+.venv
+# Data/Checkpoints (큰 파일은 LFS 권장)
+*.pth
+*.pth.tar
+*.npz
+*.npy
+*.ckpt
+dataset/
+# Build/Cache
+dist/
+build/
+*.egg-info/
+# Editors
+.vscode/
+.idea/
+# LAMMPS/Outputs
+log.*
+dump.*

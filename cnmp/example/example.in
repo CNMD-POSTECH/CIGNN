@@ -1,0 +1,49 @@
+units         metal
+dimension     3
+boundary      p p p
+atom_style    charge
+atom_modify   map yes
+
+neighbor      3.0 bin
+neigh_modify  delay 0 every 1 check yes
+newton        on
+
+read_data     mini_out.data
+
+mass 1 178.49
+mass 2 15.9994
+
+group Hf type 1
+group O  type 2
+
+pair_style   CNMP/gpu 'cuda:0' /home/work/gyrudgyrud21/CIGNN/cnmp/lammps/potentials/CNMP 0.00 0.00 2
+pair_coeff   * *  CNMP Hf O
+
+compute myField all field
+compute myChi   all chi
+compute Tcom all temp/com
+
+restart      5000  nvt.restart.*
+
+reset_timestep  0
+velocity    all create 10.0 12345 dist gaussian mom yes rot yes
+
+fix         keepCOM all momentum 10 linear 1 1 1
+
+timestep    0.001
+
+fix         th   all nvt temp 10.0 10.0 0.5
+fix_modify  th   temp Tcom
+
+thermo_style    custom step temp pe ke
+thermo_modify   temp Tcom
+thermo          100
+log             nvt.log
+
+run             10000
+
+dump          dmin all custom 100 nvt.lammpstrj id type x y z q
+dump_modify   dmin element Hf O
+dump_modify   dmin sort id
+
+write_data nvt_out.data

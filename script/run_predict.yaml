@@ -1,23 +1,22 @@
-type : 'predict' # predict or train
-path : 'example-1'
+type : 'predict'                  # Mode to run: 'train' or 'predict'
+path : 'modelset'                # Directory to save/load the model
 
 prediction :
-  charge : True
-  energy : True
-  force : True
+  charge : False                   # Predict atomic charges
+  energy : True                   # Predict total energy
+  force : True                    # Predict atomic forces
 
 device :
-  type : 'cuda' # cuda or cpu
-  number : False
+  type : 'cuda'                   # Device to use: 'cuda' or 'cpu'
+  number : 1                      # Specify CUDA device number (e.g., 0, 1)
 
 data:
-  charge : True # considering charge data 
-  e_field : False # considering electric fields
-  q_model : ./example-1/grad_q.pth.tar
+  charge : True                   # Whether the input data includes charge information
+  e_field : False                 # Whether the input data includes external electric fields
+  q_model : /home/work/gyrudgyrud21/CIGNN/modelset/q.pth.tar # Path to a pre-trained charge model (if any)
   
-  site : ./example-1
-  test_data : ['split_test.npy']
+  site : /home/work/gyrudgyrud21/CIGNN_24/dataset/Figure/Figure_Submit/Table             # Path to the dataset directory
+  test_data : ['re_test.npy']  # Filename(s) for the test dataset
 
 save :
-  best_save : grad.pth.tar # best model name
-  check_save: grad_check.pth.tar # checkpoint model name
+  best_save : ef.pth.tar        # Filename of the model to load for prediction

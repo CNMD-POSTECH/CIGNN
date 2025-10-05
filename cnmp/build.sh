@@ -31,7 +31,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 if [ -z "$CNMP_LAMMPS_PATH" ]; then
-  echo "Error: --path 인자를 지정해야 합니다."
+  echo "Error: --path set"
   usage
 fi
 
@@ -55,15 +55,16 @@ cd "$CNMP_LAMMPS_PATH" || exit 1
 mkdir -p build
 cd build || exit 1
 
-export VIRTUAL_ENV=/scratch/x3100a06/miniconda3/envs/cignn_env
-export LD_LIBRARY_PATH=$VIRTUAL_ENV/lib:$LD_LIBRARY_PATH
-export LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
+export VIRTUAL_ENV=/home/work/base/miniconda3/envs/cignn_env
+export LD_LIBRARY_PATH=$(echo $LD_LIBRARY_PATH | tr ':' '\n' | grep -v '/usr/local/lib/python3.12/dist-packages/torch/lib' | grep -v '/usr/local/lib/python3.12/dist-packages/torch_tensorrt/lib' | tr '\n' ':')
 export CMAKE_PREFIX_PATH="$VIRTUAL_ENV"
 export PATH=$CUDA_HOME/bin:$PATH
 export OMPI_CXX="$(which g++)"
 
 cmake ../cmake \
   -DCMAKE_PREFIX_PATH="$(python -c 'import torch;print(torch.utils.cmake_prefix_path)')" \
+  -DCMAKE_C_COMPILER="$(which mpicc)" \
+  -DCMAKE_CXX_COMPILER="$(which mpicxx)" \
   -DPKG_ML-CNMP=ON \
   -DPYTHON_EXECUTABLE="$(which python)" \
   -DPYTHON_INCLUDE_DIR="$(python -c "from sysconfig import get_paths; print(get_paths()['include'])")" \
