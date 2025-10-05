@@ -4,7 +4,7 @@ CIGNN (**Charge Integrated Graph Neural Network**) is a machine learning potenti
 
 This model enables the generation of customized potentials tailored for specific materials, offering high flexibility and accuracy for advanced materials simulations.
 
-![CNMD Banner Image]([https://github.com/CNMD-POSTECH/CIGNN/blob/main/.github/CNMD.png?raw=true](https://github.com/CNMD-POSTECH/CIGNN/blob/main/dataset/Figure.png))
+![CNMD Banner Image](https://github.com/CNMD-POSTECH/CIGNN/blob/main/dataset/Figure.png)
 
 ---
 
